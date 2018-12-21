@@ -17,15 +17,16 @@ public:
     {
         if((iLeft > iRight) ||(pLeft > pRight)) return NULL;
 
-        TreeNode *current = new TreeNode(postorder[pRight]);
+        //Get the root, because postorder[postorder.size()-1) = root
+        TreeNode *currentRoot = new TreeNode(postorder[pRight]);
 
         int i =0;
         for(i =0; i< inorder.size(); ++i)
         {
-            if(inorder[i] == current->val) break;
+            if(inorder[i] == currentRoot->val) break;
         }
-        current->left = buildBT(inorder, iLeft, i-1, postorder, pLeft, pLeft+i-iLeft-1);
-        current->right = buildBT(inorder, i+1, iRight, postorder, pLeft+i-iLeft, pRight-1);
-        return current;
+        currentRoot->left = buildBT(inorder, iLeft, i-1, postorder, pLeft, pLeft+i-iLeft-1);
+        currentRoot->right = buildBT(inorder, i+1, iRight, postorder, pLeft+i-iLeft, pRight-1);
+        return currentRoot;
     }
 };
